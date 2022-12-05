@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Chapterr six</title>
+</head>
+<body>
+    <header>
+        <img src="images/te.jpg" alt="">
+        <a href="" class="logo">Syrian team in Raisoni</a>
+        <nav class="navigation">
+            <a href="../ask/index.html"  title="start asking">Ask a question</a>
+            <a href="../index.html"  title="go to home page">Home page</a>
+        </nav>
+    </header>
+    <aside>
+        <nav>
+            <div class="namelist">List of acronyms :</div>
+            <div class="list">
+                <pre class="pre">
+HPC:High Performance Computing
+MPI:Message Passing Interface
+API:Application Program Interfaces
+RDMS:Relational Database Management System
+SQL:Structured Query Language
+SAN:Storage Area Network
+HDFS:Hadoop Distributed File System
+POSIX:Portable Operating System Interface
+NFS:Network File System
+MPP:Massively parallel processing
+RAID:Redundant Array of Independent Disks
+CLI:Command Line Interface
+JVM:Java Virtual Machine
+YARN:Yet Another Resource Negotiator
+LRU:Least Recently Used
+UDF:User-defined Functions
+UDA:User-defined Aggregate
+UDTF:User-defined Table Function
+PDSH:Parallel Distributed Shell
+QJM:Quorum Journal Manager
+RDD:Resilient Distributed Data-set
+ML:Machine Learning
+LRU:Least Recently Used
+DAG:Directed Acyclic Graph
+                </pre>
+            </div>
+            <div class="home">
+                <a href="../index.html"  title="go to Home page ">Home page</a>
+            </div>
+            <hr>
+            <div class="Chapters">
+                <a href="../chapter one/index.html"   title="go to Chapter one ">Chapter one</a>
+                 
+                <a href="../chapter two/index.html"   title="go to Chapter two ">Chapter two</a>
+                
+                <a href="../chapter three/index.html"   title="go to Chapter three ">Chapter three</a>
+               
+                <a href="../chapter four/index.html"   title="go to Chapter four">Chapter four</a>
+               
+                <a href="../chapter five/index.html"  title="go to Chapter five ">Chapter five</a>
+            </div>
+        </nav>
+    </aside>
+    <main>
+        <h1>Results & Suggestions</h1>
+        <div class="img">
+            <span>Execution time and failover time (sec) : </span>
+            
+            <img src="images/one.png" alt="">
+            <h3>Execution time (seconds).</h3>
+            <img src="images/two.png" alt="">
+            <h3>Execution time (seconds).</h3>
+            <img src="images/three.png" alt="">
+            <h3>diagram of the execution time (seconds).</h3>
+            <img src="images/four.png" alt="">
+            <h3>fail-over time (sec) for all experiments.</h3>
+            <img src="images/five.png" alt="">
+            <h3>fail-over time (sec) for all experiments.</h3>
+        </div>
+        <div class="first">
+            <h2>	Node manager failed :</h2>
+            1-	When a node manager failure is injected into WordCount, all corresponding tasks are completed before the resource manager can detect a failure in the node manager and after it detects the failure, it takes a lot of time trying to get the results of the corresponding tasks, and a failure to fetch results is thrown, The application manager completes the work by launching new containers on other nodes and initiating corresponding tasks until completed ones that have not sent their output to the reduction tasks the application manager does not return to reserve containers on the node whose manager failed and when the application manager receives a notification that the last task of the work is finished, it tries to release the containers before printing a message telling the user that the work finished successfully and printing the work stats and counters, so it takes time because that is the task of the failed node manager.
+        </div>
+        <div class="first">
+            <h2>	Application manager failed :</h2>
+            1-	When executing the experiment in WordCount, we noticed that when the failure is injected into the application manager, it is immediately detected by the resource manager, who launches a new copy of it on another node.
+                When executing, we note that if the program has finished a set of shorthand tasks when the failure is injected, the corresponding tasks are not re-executed.
+                If it has not started with the reduction tasks, then all the corresponding tasks will be re-executed until the completed ones, and the failure is detected and quickly bypassed, unlike the case of the failure of the node manager, which takes somewhat longer.
+ 
+        </div>
+        <div class="first">
+            <h2>	Hadoop data node crash failed :</h2>
+            1-	The difference between a full crash and crashing agents such as a node manager, data node, or application manager, is that the operating system sends a TCP reset (RST) packet only when the agent is killed, Which is an early indication of the failure and this is what we notice, as it takes Hadoop about ten minutes to detect the failure and start remedial it when the crash fails. The application manager will re-execute all the tasks on another node and it will take a lot of time trying to finish the Reserved Containers on the crashed node, which leads to a very significant deterioration of the execution time of up to seventeen minutes in WordCount.
+        </div>
+        <div class="first">
+            <h2>	Executor Launcher failed : </h2>
+            Killing the launcher leads to the failure of all the implementers it launched and all the tasks scheduled for them, as the failure is detected directly as in Hadoop and a new launcher is started on a new node, which in turn re-launches new implementers and schedules the execution of the incomplete stages with the contents of the tasks again.
+            ((The launcher in Spark corresponds to the application manager in Hadoop, and if we come to the comparison of its failover in both, we note that, in WordCount, Spark is superior to Hadoop in its failover.))
+
+        </div>
+        <div class="first">
+            <h2>	Spark failed crash : </h2>
+            The node will not send a heartbeat so the failure will be detected and the tasks scheduled on this port will fail and will be reassigned to two other ports.
+            ((We note that Spark is faster to bypass it because the number of agents running on the node is fixed, but Hadoop, the broken node contains the node manager and an unlimited number of running tasks whose killing affects the execution time)).
+
+        </div> 
+        <hr>
+        <div class="img">
+            <span>Throughput (MB/sec) :</span>
+            <img src="images/six.png" alt="">
+            <h2>throughput (MB/sec) for all experiments.</h2>
+            <img src="images/seven.png" alt="">
+            <h2>throughput plot (MB/sec) for all experiments.</h2>
+        </div>
+        <div class="first">
+            •	We note that the longer the execution time, the lower the productivity of the system and therefore, since the increase in execution in the event of a crash failure is greater than in other cases, so we find a significant deterioration in the productivity of the system when it occurs in both systems, while the failure of the application manager in Hadoop and the implementer in Spark is considered the least influential on productivity.
+        </div>
+        <hr>
+        <div  class="first">
+            <span>Results and Recommendations :</span>
+            We note that in terms of the time both systems exceed the        injected types of failure, the failure that affects both systems is the failure of the account node to completely crash, with its agents, but Hadoop is affected much more than Spark by the failure of the crash, as it takes about seventeen minutes in a program WordCount to bypass it, Then comes the failure of the node manager, as its failure time in WordCount reaches twelve minutes, and the increase in the time that occurs mostly in the application manager's attempt to release containers on the node whose manager failed, while the failure in the application manager is considered the least effective.
+            In WordCount, Spark is very tolerant of all types of failures except for crash failures. Nevertheless, it outperforms Hadoop in overcoming this failure, followed by launcher failures, while failure of the port is considered the least effective.
+        </div>
+        <hr>
+        <div class="fin">
+            <a href="../chapter five/index.html" title="go back"> Back</a>
+            <h1>Thanks for reading</h1>
+            <a href="" title="go to next">Next</a>
+        </div>
+        
+
+    </main>
+    
+</body>
+</html>
